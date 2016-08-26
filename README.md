@@ -1,25 +1,36 @@
 #dataMagik
 
-DataMagik creates a relationship between models (database tables) and classes. A class can easily
+DataMagik creates a relationship between classes (models) and database tables. A class can easily
 gain access to dataMagik's methods through inheritance and be mapped to a table. Conveniently, utilizing this
 model-to-table relationship, dataMagik can also define relationships between classes (and therefore database tables).
 These relationships are commonly referred to as 'associations'.
 
-The 'Magik' behind dataMagik relies on the user following correct naming protocols. The table name must
-be all lowercase and plural (ie 'players') and the class name must be capitalized and singular (ie 'Player'). However,
-if the user wishes, relationships can be defined explicitly and the class_name, primary/foreign key columns can be directly
-cited.
+If the user wishes, relationships can be defined explicitly and the class_name, primary/foreign key columns can be directly
+cited:
 
+```javascript
+class Team
+  has_many(
+    :players,
+    class_name: 'Player',
+    foreign_key: :team_id,
+    primary_key: :id)
+end
+```
+However, in the example above, the class_name, foreign_key, and primary_key did not need to be defined explicitly. DataMagik has default values of the following:
+- class_name: capitalized and singular method_name (players in the above example)
+- foreign_key: lowercase class  (Team in the above example) with \_id
+- primary_key: :id
 
 ###Accessing Database models
 
 DataMagik gives a plethora of methods with which to access the database.
 
 **Methods**
-- #table_name
-- #model_name
 - #save
 - #update
+- ::table_name
+- ::model_name
 - ::find
 - ::where
 - ::all
@@ -96,9 +107,17 @@ Parameters accepted:
 ###How To Use:
 
 - Clone this repo into your project
-- You need to require_relative './dataMagik/data_magic'
-- You MUST call 'DBConnection.open(YOUR_OWN_PATH_TO_DB_FILE)' to load your SQLite3 DB
-- Use the supplied methods to manipulate and query your data!
+- If you would like to use the demo database:
+  - Open pry
+  - Type: <tt> load 'sample_models.rb'<tt>
+  - Type: <tt> DBConnection.reset <tt>
+  - Check to make sure that 'baseball.db' was created
+  - Try out the methods for the Player/Team/Owner classes
+- If you would like to use your own database:
+  - Your models must inherit from <tt>SQLObject<tt>
+  - You need to <tt>require_relative './dataMagik/data_magic'<tt>
+  - You MUST call <tt>DBConnection.open(YOUR_OWN_PATH_TO_DB_FILE)<tt> to load your SQLite3 DB
+  - Use the supplied methods to manipulate and query your data!
 
 These are sample models you might write:
 
