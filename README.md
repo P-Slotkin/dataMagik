@@ -109,14 +109,14 @@ Parameters accepted:
 - Clone this repo into your project
 - If you would like to use the demo database:
   - Open pry
-  - Type: <tt> load 'sample_models.rb'<tt>
-  - Type: <tt> DBConnection.reset <tt>
+  - Type: <tt> load 'sample_models.rb'</tt>
+  - Type: <tt> DBConnection.reset </tt>
   - Check to make sure that 'baseball.db' was created
   - Try out the methods for the Player/Team/Owner classes
 - If you would like to use your own database:
-  - Your models must inherit from <tt>SQLObject<tt>
-  - You need to <tt>require_relative './dataMagik/data_magic'<tt>
-  - You MUST call <tt>DBConnection.open(YOUR_OWN_PATH_TO_DB_FILE)<tt> to load your SQLite3 DB
+  - Your models must inherit from <tt>SQLObject</tt>
+  - You need to <tt>require_relative './dataMagik/data_magic'</tt>
+  - You MUST call <tt>DBConnection.open(YOUR_OWN_PATH_TO_DB_FILE)</tt> to load your SQLite3 DB
   - Use the supplied methods to manipulate and query your data!
 
 These are sample models you might write:
