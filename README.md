@@ -14,10 +14,11 @@ class Team
     :players,
     class_name: 'Player',
     foreign_key: :team_id,
-    primary_key: :id)
+    primary_key: :id
+  )
 end
 ```
-However, in the example above, the class_name, foreign_key, and primary_key did not need to be defined explicitly. DataMagik has default values of the following:
+However, in the example above, the class_name, foreign_key, and primary_key did not need to be defined explicitly. DataMagik follows 'convention over configuration' and has default values of the following:
 - class_name: capitalized and singular method_name (players in the above example)
 - foreign_key: lowercase class  (Team in the above example) with \_id
 - primary_key: :id
@@ -30,13 +31,10 @@ DataMagik gives a plethora of methods with which to access the database.
 - #save
 - #update
 - ::table_name
-- ::model_name
 - ::find
 - ::where
 - ::all
 - ::new
-- ::first
-- ::last
 - ::columns
 - ::attributes
 - ::belongs_to
@@ -108,10 +106,12 @@ Parameters accepted:
 
 - Clone this repo into your project
 - If you would like to use the demo database:
-  - Open pry
+  - Type: <tt>cd dataMagik</tt>
+  - Type: <tt> bundle install </tt>
+  - Open pry or irb
   - Type: <tt> load 'sample_models.rb'</tt>
   - Type: <tt> DBConnection.reset </tt>
-  - Check to make sure that 'baseball.db' was created
+  - Check to make sure that 'baseball.db' was created in your dataMagik's directory
   - Try out the methods for the Player/Team/Owner classes
 - If you would like to use your own database:
   - Your models must inherit from <tt>SQLObject</tt>
@@ -126,10 +126,11 @@ require 'data_magic'
 
 class Player < SQLObject
   belongs_to :team, foreign_key: :team_id
-  has_one_through (
-    :team_owner,
+  has_one_through(
+    :owner,
     through: :team,
-    source: :owner)
+    source: :owner
+  )
 end
 
 class Team < SQLObject
@@ -138,7 +139,8 @@ class Team < SQLObject
     :players,
     class_name: 'Player',
     foreign_key: :team_id,
-    primary_key: :id)
+    primary_key: :id
+  )
 end
 ```
 A few notes on the above code:
